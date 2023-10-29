@@ -8,7 +8,7 @@ document.getElementById('contact').addEventListener('submit', function (event) {
   const age = document.getElementById('age').value;
   const message = document.getElementById('message').value;
   const result = document.getElementById('result');
-  const txtError = document.querySelectorAll('error-txt');
+  const txtError = document.querySelectorAll('.error-txt');
 
   const telPattern = /^[0-9\-]+$/;
   const agePattern = /^[0-9]+$/;
@@ -16,22 +16,22 @@ document.getElementById('contact').addEventListener('submit', function (event) {
 
   if (name.length > 50) {
     errors.push('50文字以内で入力してください。');
-    txtError.innerHTML += `<p>50文字以内で入力してください。</p>`;
+    txtError[0].innerHTML += `<p>50文字以内で入力してください。</p>`;
   }
 
   if (!telPattern.test(tel)) {
     errors.push('半角数字とハイフンのみ使用できます。');
-    txtError.innerHTML += `<p>半角数字とハイフンのみ使用できます。</p>`;
+    txtError[1].innerHTML += `<p>半角数字とハイフンのみ使用できます。</p>`;
   }
 
   if (!agePattern.test(age) || isNaN(Number(age))) {
     errors.push('年齢：半角数字のみ使用できます。');
-    txtError.innerHTML += `<p>半角数字のみ使用できます</p>`;
+    txtError[2].innerHTML += `<p>半角数字のみ使用できます</p>`;
   }
 
   if (message.length > 200) {
     errors.push('問い合わせ内容：200文字以内で入力してください。');
-    txtError.innerHTML += `<p>200文字以内で入力してください。</p>`;
+    txtError[3].innerHTML += `<p>200文字以内で入力してください。</p>`;
   }
 
   // バリデーションOKなら入力内容表示
