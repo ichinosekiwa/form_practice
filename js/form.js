@@ -15,19 +15,19 @@ document.getElementById('contact').addEventListener('submit', function (event) {
   const errors = [];
 
   if (name.length > 50) {
-    errors.push('50文字以内で入力してください。');
+    errors.push('名前：50文字以内で入力してください。');
   }
 
   if (!telPattern.test(tel)) {
-    errors.push('半角数字とハイフンのみ使用できます。');
+    errors.push('電話番号：半角数字とハイフンのみ使用できます。');
   }
 
   if (!agePattern.test(age) || isNaN(Number(age))) {
-    errors.push('半角数字のみ使用できます。');
+    errors.push('年齢：半角数字のみ使用できます。');
   }
 
   if (message.length > 200) {
-    errors.push('200文字以内で入力してください。');
+    errors.push('問い合わせ内容：200文字以内で入力してください。');
   }
 
   // バリデーションOKなら入力内容表示

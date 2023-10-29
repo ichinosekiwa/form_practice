@@ -51,10 +51,6 @@ button {
   width: 80px;
   cursor: pointer;
 }
-/* 
-#result {
-  display: none;
-} */
 
 #result {
   margin: 32px auto 0;
@@ -62,6 +58,4 @@ button {
   font-size: 1.6rem;
   line-height: 1.7;
   width: 400px;
-  padding: 1em;
-  border: 1px solid #333;
 }
