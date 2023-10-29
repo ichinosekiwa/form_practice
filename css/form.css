@@ -24,11 +24,20 @@ form {
   width: 100%;
 }
 .contact-form tr {
-  height: 40px;
+  height: 60px;
+  position: relative;
 }
 .contact-form th {
   text-align: left;
   width: 100px;
+}
+.contact-form th {
+  text-align: left;
+  width: 100px;
+}
+.contact-form.error-txt {
+  position: absolute;
+  bottom: 0;
 }
 .contact-form td {
   width: 200px;
