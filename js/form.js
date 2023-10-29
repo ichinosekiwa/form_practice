@@ -8,26 +8,33 @@ document.getElementById('contact').addEventListener('submit', function (event) {
   const age = document.getElementById('age').value;
   const message = document.getElementById('message').value;
   const result = document.getElementById('result');
+  const nameError = document.getElementById('name-error');
+  const telError = document.getElementById('tel-error');
+  const ageError = document.getElementById('age-error');
+  const messageError = document.getElementById('message-error');
 
   const telPattern = /^[0-9\-]+$/;
   const agePattern = /^[0-9]+$/;
-
   const errors = [];
 
   if (name.length > 50) {
-    errors.push('名前：50文字以内で入力してください。');
+    errors.push('50文字以内で入力してください。');
+    nameError.textContent = '50文字以内で入力してください。';
   }
 
   if (!telPattern.test(tel)) {
-    errors.push('電話番号：半角数字とハイフンのみ使用できます。');
+    errors.push('半角数字とハイフンのみ使用できます。');
+    telError.textContent = '半角数字とハイフンのみ使用できます。';
   }
 
   if (!agePattern.test(age) || isNaN(Number(age))) {
     errors.push('年齢：半角数字のみ使用できます。');
+    ageError.textContent = '半角数字のみ使用できます。';
   }
 
   if (message.length > 200) {
     errors.push('問い合わせ内容：200文字以内で入力してください。');
+    messageError.textContent = '200文字以内で入力してください。';
   }
 
   // バリデーションOKなら入力内容表示
@@ -42,9 +49,9 @@ document.getElementById('contact').addEventListener('submit', function (event) {
     document.getElementById('contact').reset();
   }
   // バリデーションNGならエラー表示
-  else {
-    errors.forEach((error) => {
-      result.innerHTML += `<p>${error}</p>`;
-    });
-  }
+  //   else {
+  //     errors.forEach((error) => {
+  //       result.innerHTML += `<p>${error}</p>`;
+  //     });
+  //   }
 });
