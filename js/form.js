@@ -1,54 +1,62 @@
 'use strict';
 
-document.getElementById('contact').addEventListener('submit', function (event) {
-  event.preventDefault();
+document.addEventListener('DOMContentLoaded', () => {
+  const contactForm = document.querySelector('.contact');
+  if (contactForm) {
+    const errorText = 'error';
+    const telItem = document.querySelectorAll('.tel');
+    const ageItem = document.querySelectorAll('.age');
 
-  const name = document.getElementById('name').value;
-  const tel = document.getElementById('tel').value;
-  const age = document.getElementById('age').value;
-  const message = document.getElementById('message').value;
-  const result = document.getElementById('result');
-  const txtError = document.querySelectorAll('.error-txt');
+    // エラーメッセージspan要素を作って表示する
+    const createError = (item, errorMessage) => {
+      // span 作成
+      const errorSpan = document.createElement('span');
+      errorSpan.classList.add(errorText);
+      // aria-live属性を設定（aria-live属性を "polite" に設定すると、エラーメッセージが新しく追加されたときに、他のコンテンツに干渉を与えずにユーザーに通知される）
+      errorSpan.setAttribute('aria-live', 'polite');
+      errorSpan.textContent = errorMessage;
+      item.parentNode.appendChild(errorSpan);
+    };
+    //送信したらエラーを表示する全ての要素を削除（初期化）
+    contactForm.addEventListener('submit', (e) => {
+      const errorItems = contactForm.querySelectorAll('.' + errorText);
+      errorItems.forEach((item) => {
+        item.remove();
+      });
 
-  const telPattern = /^[0-9\-]+$/;
-  const agePattern = /^[0-9]+$/;
-  const errors = [];
-
-  if (name.length > 50) {
-    errors.push('50文字以内で入力してください。');
-    txtError[0].innerHTML += `<p>50文字以内で入力してください。</p>`;
+      // 電話番号についての検証
+      telItem.forEach((item) => {
+        const pattern = /^[0-9\-]+$/;
+        if (item.value !== '') {
+          //test() メソッドで値を判定 NGならメッセージを表示してフォームの送信を中止する
+          if (!pattern.test(item.value)) {
+            createError(item, '半角数字とハイフンのみ使用できます。');
+            e.preventDefault();
+          }
+        }
+      });
+      // 年齢についての検証
+      ageItem.forEach((item) => {
+        const pattern = /^[0-9]+$/;
+        if (item.value !== '') {
+          if (!pattern.test(item.value)) {
+            createError(item, '半角数字のみ使用できます。');
+            e.preventDefault();
+          }
+        }
+      });
+    });
   }
-
-  if (!telPattern.test(tel)) {
-    errors.push('半角数字とハイフンのみ使用できます。');
-    txtError[1].innerHTML += `<p>半角数字とハイフンのみ使用できます。</p>`;
-  }
-
-  if (!agePattern.test(age) || isNaN(Number(age))) {
-    errors.push('年齢：半角数字のみ使用できます。');
-    txtError[2].innerHTML += `<p>半角数字のみ使用できます</p>`;
-  }
-
-  if (message.length > 200) {
-    errors.push('問い合わせ内容：200文字以内で入力してください。');
-    txtError[3].innerHTML += `<p>200文字以内で入力してください。</p>`;
-  }
-
   // バリデーションOKなら入力内容表示
+  const resultItem = document.getElementById('result');
   if (errors.length === 0) {
     result.innerHTML = `
-                    <p>入力内容を確認</p>
-                    <p>名前: ${name}</p>
-                    <p>電話番号: ${tel}</p>
-                    <p>年齢: ${age}</p>
-                    <p>問い合わせ内容: ${message}</p>
-                `;
+                        <p>入力内容を確認</p>
+                        <p>名前: ${name}</p>
+                        <p>電話番号: ${tel}</p>
+                        <p>年齢: ${age}</p>
+                        <p>問い合わせ内容: ${message}</p>
+                    `;
     document.getElementById('contact').reset();
   }
-  // バリデーションNGならエラー表示
-  //   else {
-  //     errors.forEach((error) => {
-  //       result.innerHTML += `<p>${error}</p>`;
-  //     });
-  //   }
 });
