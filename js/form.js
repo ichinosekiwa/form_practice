@@ -6,14 +6,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const errorText = 'error';
     const telItem = document.querySelectorAll('.tel');
     const ageItem = document.querySelectorAll('.age');
+    const maxlengthItem = document.querySelectorAll('.maxlength');
 
     // エラーメッセージspan要素を作って表示する
     const createError = (item, errorMessage) => {
       // span 作成
       const errorSpan = document.createElement('span');
       errorSpan.classList.add(errorText);
-      // aria-live属性を設定（aria-live属性を "polite" に設定すると、エラーメッセージが新しく追加されたときに、他のコンテンツに干渉を与えずにユーザーに通知される）
-      errorSpan.setAttribute('aria-live', 'polite');
+      // // aria-live属性を設定（aria-live属性を "polite" に設定すると、エラーメッセージが新しく追加されたときに、他のコンテンツに干渉を与えずにユーザーに通知される）
+      // errorSpan.setAttribute('aria-live', 'polite');
       errorSpan.textContent = errorMessage;
       item.parentNode.appendChild(errorSpan);
     };
@@ -47,6 +48,18 @@ document.addEventListener('DOMContentLoaded', () => {
           if (!pattern.test(item.value)) {
             createError(item, '半角数字のみ使用できます');
             validate = false;
+          }
+        }
+      });
+
+      // maxlengthについての検証
+      maxlengthItem.forEach((item) => {
+        // data-maxlength属性から文字数を取得
+        const maxlength = item.getAttribute('data-maxlength');
+        if (item.value !== '') {
+          if (item.value.length > maxlength) {
+            createError(item, maxlength + '文字以内で入力してください');
+            e.preventDefault();
           }
         }
       });
