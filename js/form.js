@@ -13,8 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
       // span 作成
       const errorSpan = document.createElement('span');
       errorSpan.classList.add(errorText);
-      // // aria-live属性を設定（aria-live属性を "polite" に設定すると、エラーメッセージが新しく追加されたときに、他のコンテンツに干渉を与えずにユーザーに通知される）
-      // errorSpan.setAttribute('aria-live', 'polite');
       errorSpan.textContent = errorMessage;
       item.parentNode.appendChild(errorSpan);
     };
