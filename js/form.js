@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (item.value !== '') {
           if (item.value.length > maxlength) {
             createError(item, maxlength + '文字以内で入力してください');
-            e.preventDefault();
+            validate = false;
           }
         }
       });
